@@ -7,9 +7,14 @@ import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import uz.gita.memorygameapp.R
 import uz.gita.memorygameapp.data.model.GameData
 import uz.gita.memorygameapp.data.model.LevelEnum
@@ -47,6 +52,7 @@ class GameScreen : Fragment(R.layout.screen_game) {
             loadView()
             viewModel.loadData(level)
         }
+
         viewModel.allGameDataLiveData.observe(viewLifecycleOwner, allGameDataObserver)
         viewModel.twoSelectedFoundLiveData.observe(viewLifecycleOwner, twoSelectedFoundObserver)
     }
@@ -65,10 +71,15 @@ class GameScreen : Fragment(R.layout.screen_game) {
     private val twoSelectedFoundObserver = Observer<SelectedFoundData> {
         if (it.bool) {
             it.image1.gone()
+            views.remove(it.image1)
             it.image2.gone()
+            views.remove(it.image2)
         } else {
             viewModel.closeClickImage(it.image1, requireContext())
             viewModel.closeClickImage(it.image2, requireContext())
+        }
+        if (views.size == 0){
+            findNavController().navigateUp()
         }
     }
 
@@ -82,7 +93,7 @@ class GameScreen : Fragment(R.layout.screen_game) {
                     height = _height
                     width = _width
                 }
-                image.x = i * _width * 1f
+                image.x = i * _width.toFloat()
                 image.y = j * _height * 1f
                 image.scaleType = ImageView.ScaleType.FIT_XY
                 lp.setMargins(4, 4, 4, 4)
@@ -92,4 +103,5 @@ class GameScreen : Fragment(R.layout.screen_game) {
             }
         }
     }
+
 }

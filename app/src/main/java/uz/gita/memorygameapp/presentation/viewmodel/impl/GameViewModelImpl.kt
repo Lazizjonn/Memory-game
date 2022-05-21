@@ -25,8 +25,8 @@ class GameViewModelImpl @Inject constructor(
     private val useCase: AllDataUseCase
 ) : ViewModel(), GameViewModel {
     private var count = 0
-    var image1: ImageView? = null
-    var image2: ImageView? = null
+    private var image1: ImageView? = null
+    private var image2: ImageView? = null
     override val allGameDataLiveData = MutableLiveData<List<GameData>>()
     override val twoSelectedFoundLiveData = MutableLiveData<SelectedFoundData>()
 
@@ -40,7 +40,7 @@ class GameViewModelImpl @Inject constructor(
         image.animate().setDuration(200).rotationY(90f).withEndAction {
             image.setImageResource((image.tag as GameData).image)
             image.animate().setDuration(200).rotationY(180f).setInterpolator(DecelerateInterpolator()).withEndAction {
-                Toast.makeText(context, "end", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "end", Toast.LENGTH_SHORT).show()
             }
         }.start()
     }
@@ -49,25 +49,29 @@ class GameViewModelImpl @Inject constructor(
         image.animate().setDuration(200).rotationY(90f).withEndAction {
             image.setImageResource(R.drawable.image_back)
             image.animate().setDuration(200).rotationY(0f).setInterpolator(DecelerateInterpolator()).withEndAction {
-                Toast.makeText(context, "end", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "end", Toast.LENGTH_SHORT).show()
             }
         }.start()
     }
 
     override fun itemClicked(image: ImageView, context: Context) {
 
-        if (image.rotationY == 180F) return
 
-        viewModelScope.launch {
-            openClickImage(image, context)
-            if (count == 0) {
-                image1 = image
-                count = 1
-            } else {
-                image2 = image
-                count = 0
-                delay(1000)
-                checkTwoSelected(image1!!, image2!!)
+        if (image.rotationY < 1f && count < 3 ) {
+            viewModelScope.launch {
+                if (count == 0) {
+                    count = 1
+                    image1 = image
+                    openClickImage(image, context)
+                } else if (image != image1 && count == 1 ) {
+                    openClickImage(image, context)
+                    count = 2
+                    image2 = image
+                    delay(1000)
+                    checkTwoSelected(image1!!, image2!!)
+                } else {
+                    // 3rd image clicked
+                }
             }
         }
     }
@@ -75,8 +79,10 @@ class GameViewModelImpl @Inject constructor(
     private fun checkTwoSelected(firstImage: ImageView, secondImage: ImageView) {
        if  ((firstImage.tag as GameData).id == (secondImage.tag as GameData).id) {
            twoSelectedFoundLiveData.value = SelectedFoundData(true, firstImage, secondImage)
+           count = 0
        } else {
            twoSelectedFoundLiveData.value = SelectedFoundData(false, firstImage, secondImage)
+           count = 0
        }
     }
 
