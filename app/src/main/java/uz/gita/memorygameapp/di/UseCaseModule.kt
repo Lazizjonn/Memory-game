@@ -9,8 +9,6 @@ import uz.gita.memorygameapp.domain.usecase.impl.AllDataUseCaseImpl
 
 @[Module InstallIn(SingletonComponent::class)]
 interface UseCaseModule {
-
     @Binds
     fun getAllDataUseCase(impl: AllDataUseCaseImpl): AllDataUseCase
-
 }

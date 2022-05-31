@@ -9,8 +9,6 @@ import uz.gita.memorygameapp.domain.repository.impl.AppRepositoryImpl
 
 @[Module InstallIn(SingletonComponent::class)]
 interface RepositoryModule {
-
     @Binds
     fun getAppRepository(impl: AppRepositoryImpl): AppRepository
-
 }

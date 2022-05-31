@@ -1,6 +1,5 @@
 package uz.gita.memorygameapp.domain.usecase.impl
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,7 +15,6 @@ import javax.inject.Singleton
 class AllDataUseCaseImpl @Inject constructor(
     private val repository: AppRepository
 ) : AllDataUseCase {
-
     override fun getDataByLevel(level: LevelEnum): Flow<List<GameData>> = flow {
         val result = ArrayList<GameData>()
         val demo = repository.getDataByLevel(level)
@@ -28,4 +26,6 @@ class AllDataUseCaseImpl @Inject constructor(
 
         emit(result)
     }.flowOn(Dispatchers.IO)
+    override fun getEachLevel(level: LevelEnum): Int = repository.getEachLevel(level)
+    override fun putEachLevel(level: LevelEnum, value: Int) = repository.putEachLevel(level, value)
 }

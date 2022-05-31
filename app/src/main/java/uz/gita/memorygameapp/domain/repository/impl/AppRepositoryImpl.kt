@@ -10,12 +10,19 @@ import javax.inject.Singleton
 
 @Singleton
 class AppRepositoryImpl @Inject constructor(
-    private val pref : SharedPref
+    private val pref: SharedPref
 ) : AppRepository {
     private val list = ArrayList<GameData>()
-
-    init { load() }
-
+    init {
+        load()
+    }
+    override suspend fun getDataByLevel(level: LevelEnum): List<GameData> {
+        val count = level.x * level.y
+        list.shuffle()
+        return list.subList(0, count / 2)
+    }
+    override fun getEachLevel(level: LevelEnum): Int = pref.getLevel(level)
+    override fun putEachLevel(level: LevelEnum, value: Int) = pref.putLevel(level, value)
     private fun load() {
         list.add(GameData(1, R.drawable.image_1))
         list.add(GameData(2, R.drawable.image_2))
@@ -72,9 +79,5 @@ class AppRepositoryImpl @Inject constructor(
         list.add(GameData(53, R.drawable.image_53))
     }
 
-    override suspend fun getDataByLevel(level: LevelEnum): List<GameData> {
-        val count = level.x * level.y
-        list.shuffle()
-        return list.subList(0, count / 2)
-    }
+
 }

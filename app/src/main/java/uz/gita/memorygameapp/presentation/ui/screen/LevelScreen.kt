@@ -20,12 +20,13 @@ class LevelScreen : Fragment(R.layout.screen_level) {
     private val binding by viewBinding(ScreenLevelBinding::bind)
     private val viewModel: LevelViewModel by viewModels<LevelViewModelImpl>()
 
+    @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.easy.setOnClickListener { viewModel.openGameScreen(LevelEnum.EASY) }
         binding.medium.setOnClickListener { viewModel.openGameScreen(LevelEnum.MEDIUM) }
         binding.hard.setOnClickListener { viewModel.openGameScreen(LevelEnum.HARD) }
 
-        viewModel.openGameScreenLiveData.observe(this, openGameScreenObserver)
+        viewModel.openGameScreenLiveData.observe(this@LevelScreen, openGameScreenObserver)
     }
 
     private val openGameScreenObserver = Observer<LevelEnum> {
