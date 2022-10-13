@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav"
-    app:startDestination="@id/levelScreen">
+    app:startDestination="@id/splashScreen">
 
     <fragment
         android:id="@+id/splashScreen"
@@ -14,7 +14,7 @@
             android:id="@+id/action_splashScreen_to_levelScreen"
             app:destination="@id/levelScreen"
             app:popUpTo="@id/splashScreen"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/gameScreen"
