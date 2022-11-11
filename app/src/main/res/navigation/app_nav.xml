@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashScreen"
-        android:name="uz.gita.memorygameapp.presentation.ui.screen.SplashScreen"
+        android:name="uz.gita.memorygameapp_slp.presentation.ui.screen.SplashScreen"
         android:label="screen_splash"
         tools:layout="@layout/screen_splash" >
         <action
@@ -18,16 +18,16 @@
     </fragment>
     <fragment
         android:id="@+id/gameScreen"
-        android:name="uz.gita.memorygameapp.presentation.ui.screen.GameScreen"
+        android:name="uz.gita.memorygameapp_slp.presentation.ui.screen.GameScreen"
         android:label="screen_game"
         tools:layout="@layout/screen_game" >
         <argument
             android:name="level"
-            app:argType="uz.gita.memorygameapp.data.model.LevelEnum" />
+            app:argType="uz.gita.memorygameapp_slp.data.model.LevelEnum" />
     </fragment>
     <fragment
         android:id="@+id/levelScreen"
-        android:name="uz.gita.memorygameapp.presentation.ui.screen.LevelScreen"
+        android:name="uz.gita.memorygameapp_slp.presentation.ui.screen.LevelScreen"
         android:label="screen_level"
         tools:layout="@layout/screen_level" >
         <action

@@ -10,7 +10,7 @@ plugins {
     compileSdk 32
 
     defaultConfig {
-        applicationId "uz.gita.memorygameapp"
+        applicationId "uz.gita.memorygameapp_slp"
         minSdk 21
         targetSdk 32
         versionCode 1
@@ -31,8 +31,8 @@ plugins {
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            shrinkResources true
-            minifyEnabled true
+            shrinkResources false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -73,8 +73,8 @@ dependencies {
     /**
      * Navigation
      * */
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
 
     /**
      *   viewBinding

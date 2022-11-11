@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class uz.gita.memorygameapp.data.*{*;}
+-keep class uz.gita.memorygameapp_slp.data.*{*;}

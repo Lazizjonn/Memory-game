@@ -14,5 +14,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "MemoryGameApp"
+rootProject.name = "MemoryGameApp_slp"
 include ':app'
